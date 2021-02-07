@@ -1,9 +1,8 @@
 
 
 /*
-  LiquidCrystal Library - scrollDisplayLeft() and scrollDisplayRight()
+  Διαμόρφωση ακροδεκτών LCD
   
-  The circuit:
  * LCD RS pin to digital pin 23
  * LCD Enable pin to digital pin 22
  * LCD D4 pin to digital pin 5
@@ -31,13 +30,13 @@
 AsyncWebServer server(80);  
 #define FIRMWARE_VERSION "v1.0.1"
 //===================Ορισμός ssid και password τοπικού δικτύου=================//
-const char* ssid = "use your ssid";
-const char* password = "and password";
+const char* ssid = "FiNa";
+const char* password = "Myt1l3ne9598";
 //=============================================================================//
 
 //=============================Ορισμός username και password για την σύνδεση στην ιστοσελίδα===================//
-const char* username = "type your login username"; 
-const char* pass = "type your login password"; 
+const char* username = "ele516059"; 
+const char* pass = "134740"; 
 //============================================================================================================//
 
 //=======================================Ορισμός μεταβλητών================================================//
@@ -131,7 +130,7 @@ void readFile(){
 //==================================ρουτίνα εμφάνισης MAC διεύθυνσης==================================//
 static String getMacAddress(void)
 {
-  esp_read_mac( baseMac, ESP_MAC_WIFI_STA ); // Get MAC address for WiFi station
+  esp_read_mac( baseMac, ESP_MAC_WIFI_STA ); 
   char macStr[18] = { 0 };
   sprintf(macStr, "%02X:%02X:%02X:%02X:%02X:%02X", baseMac[0], baseMac[1], baseMac[2], baseMac[3], baseMac[4], baseMac[5]);
   return String(macStr);
@@ -169,28 +168,28 @@ String readText(){
 
 //===============================================ρουτίνα ενεργοποίησης και σύνδεσης στο τοπικό δίκτυο=================================//
 void wifiInit(){
-WiFi.mode(WIFI_STA); //Connectto your wifi
+WiFi.mode(WIFI_STA); //Λειτουργία του ESP ως Web Server
   WiFi.begin(ssid, password);
   Serial.print("Connecting to ");
   Serial.print(ssid);
  
-  //Wait for WiFi to connect
-  while(WiFi.waitForConnectResult() != WL_CONNECTED){      
+ 
+  while(WiFi.waitForConnectResult() != WL_CONNECTED){ //Αναμονή για σύνδεση στο δίκτυο   
       Serial.print(".");
     }
     
-  //If connection successful show IP address in serial monitor
+ 
   Serial.println("");
   Serial.print("Connected to ");
   Serial.println(ssid);
   Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());  //IP address assigned to your ESP
+  Serial.println(WiFi.localIP());  //Εκτύπωση IP διεύθυνσης
   }
 //==========================================================================================================================================//
 
 //==========================================ρουτίνα ενεργοποίησης LCD και εμφάνιση μυνήματος===============================================//
  void readLCD(){
-  lcd.begin(16, 2); // set up the LCD's number of columns and rows 
+  lcd.begin(16, 2); 
       message = lcd.print(buffer1);  
       delay(1000);
   }
@@ -214,9 +213,9 @@ pinMode(32,INPUT); //ορισμός pin 32 ώς είσοδος
     String type;
     if (ArduinoOTA.getCommand() == U_FLASH)
       type = "sketch";
-    else // U_SPIFFS
+    else 
       type = "filesystem";
-    SPIFFS.end(); // NOTE: if updating SPIFFS this would be the place to unmount SPIFFS using SPIFFS.end()
+    SPIFFS.end(); 
     Serial.println("Start updating " + type);
   })
   .onEnd([]() {
@@ -235,9 +234,9 @@ pinMode(32,INPUT); //ορισμός pin 32 ώς είσοδος
   });
   ArduinoOTA.begin( );
    Update.onProgress(printProgress);
-// Τέλος OTA Update//
+//=========================================== Τέλος OTA Update========================================//
 
-//Ενεργοποίηση το DNS//
+//===========================================Ενεργοποίηση το DNS=====================================//
 if (MDNS.begin("dipae")) {
     Serial.println("MDNS responder started");
   }    
@@ -331,7 +330,7 @@ void handleDoUpdate(AsyncWebServerRequest *request, const String& filename, size
   {
     Serial.println("Update");
     content_len = request->contentLength();
-    // if filename includes spiffs, update the spiffs partition
+    
     int cmd = (filename.indexOf("spiffs") > -1) ? U_SPIFFS : U_FLASH;
     if (!Update.begin(UPDATE_SIZE_UNKNOWN, cmd))
     {
@@ -399,27 +398,28 @@ String listFiles(bool ishtml) {
   return returnText;
 }
 
-// Make size of files human readable
-// source: https://github.com/CelliesProjects/minimalUploadAuthESP32
+
 String humanReadableSize(const size_t bytes) {
   if (bytes < 1024) return String(bytes) + " B";
   else if (bytes < (1024 * 1024)) return String(bytes / 1024.0) + " KB";
   else if (bytes < (1024 * 1024 * 1024)) return String(bytes / 1024.0 / 1024.0) + " MB";
   else return String(bytes / 1024.0 / 1024.0 / 1024.0) + " GB";
 }
-//handler για το ανέβασμα αρχείων στο SPIFFS μέσω της default ιστοσελίδας
+
+//======================================handler για το ανέβασμα αρχείων στο SPIFFS μέσω της default ιστοσελίδας============================//
+
 void handleUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
-  // make sure authenticated before allowing upload
+  
 
   if (!index) {
     logmessage = "Upload Start: " + String(filename);
-    // open the file on first call and store the file handle in the request object
+    
     request->_tempFile = SPIFFS.open("/" + filename, "w");
     Serial.println(logmessage);
   }
 
   if (len) {
-    // stream the incoming chunk to the opened file
+    
     request->_tempFile.write(data, len);
     logmessage = "Writing file: " + String(filename) + " index=" + String(index) + " len=" + String(len);
     Serial.println(logmessage);
