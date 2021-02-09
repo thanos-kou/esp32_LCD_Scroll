@@ -81,6 +81,10 @@ server.on("/txt", HTTP_GET, [](AsyncWebServerRequest *request){
   
     request->send_P(200, "text/plain", readLDR().c_str());
   });
+    server.on("/vers", HTTP_GET, [](AsyncWebServerRequest *request){
+  
+    request->send_P(200, "text/plain", readVersion().c_str());
+  });
 server.on("/get", HTTP_GET, [] (AsyncWebServerRequest *request) {
  String inputMessage;   
  String inputMessage1;
