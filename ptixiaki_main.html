@@ -19,7 +19,7 @@
 <div id=plaisio><div2 class='a'>
 <h1>TFCE32</h1>
 <body><p style='font-size:20px'>(Take Full Control of Esp32)</p>
-<form name=BUILD_REVISIONS><h1>Version Panel</h1><p>ESP32: 1.0.0</p></form>
+<form name=BUILD_REVISIONS><h1>Version Panel</h1><p><span id="CodeVers">%VERSION%</span></p></form>
 <form name=Brightness><h1>Brightness Level</h1><p>Currnent Brightness is at <span id="Pvalue">%VALUEP%</span>%</p></form>
 <form  action="/get" id = "TxtFile" target="hidden-form"><h1>LCD Control Panel</h1>
 <input type="text" id="TxtFile" value="" name="inputString1">
@@ -119,7 +119,8 @@ img {display: block;margin-left: auto;margin-right: auto;}
   cursor: pointer;
   text-align: center;
 }
-</style><script>
+</style>
+<script>
 function readValues() {
       alert("Saved values to ESP SPIFFS");
       setTimeout(function(){ document.location.reload(false); }, 500);   
@@ -144,10 +145,7 @@ function topFunction() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
-</script>
 
-
-<script>
 function openNav() {
   document.getElementById("mySidenav").style.width = "250px";
   document.getElementById("main").style.marginLeft = "250px";
@@ -157,12 +155,27 @@ function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
   document.getElementById("main").style.marginLeft= "0";
 }
-</script>
-<script>
+
+
+setInterval(function() {
+  // Call a function repetatively with 2 Second interval
+  getV();
+}, 50); 
+function getV() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("CodeVers").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "vers", true);
+  xhttp.send();
+}
 setInterval(function() {
   // Call a function repetatively with 2 Second interval
   getT();
-}, 1000); 
+}, 50); 
 function getT() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -193,7 +206,7 @@ function getP() {
 setInterval(function() {
   // Call a function repetatively with 2 Second interval
   getM();
-}, 1000); 
+}, 50); 
 
 function getM() {
   var xhttp = new XMLHttpRequest();
@@ -206,12 +219,11 @@ function getM() {
   xhttp.open("GET", "mc", true);
   xhttp.send();
 }
-</script>
-<script>
+
 setInterval(function() {
   // Call a function repetatively with 2 Second interval
   getI();
-}, 1000); 
+}, 50); 
 
 function getI() {
   var xhttp = new XMLHttpRequest();
