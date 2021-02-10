@@ -6,19 +6,19 @@
 <link rel='icon' href='data:,'>
 </head><div1 id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href='/logged-out'>Logout</a>
-  <a href='#bottom'>Contact</a>
-  <a href='https://www.iee.ihu.gr/'>University Website</a>
-<a href='/upload'>Upload Tool</a>
-<a href='/BootLoaderIndex'>Firmware Tool</a>
+ <h1> <a href='/logged-out'>Logout</a></h1>
+ <h1> <a href='#bottom'>Contact</a></h1>
+<h1><a href='/upload'>Upload Tool</a></h1>
+<h1><a href='/BootLoaderIndex'>Firmware Tool</a></h1>
+ <h1> <a href='https://www.iee.ihu.gr/'>University Website</a></h1>
 </div1>
 <div1 id="main">
   <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
 </div1>
 <a href='/'><img border='0' src='https://m.902.gr/sites/default/files/styles/902-grid-8/public/MediaV2/20200206/dipae.jpg?itok=kOvwnoTx' width='250' height='150'></a>
 <div id=plaisio><div2 class='a'>
-<h1>TFCE32</h1>
-<body><p style='font-size:20px'>(Take Full Control of Esp32)</p>
+<h1 style='color:white'>TFCE32</h1>
+<body><p style='font-size:20px; color:white'>(Take Full Control of Esp32)</p>
 <form name=BUILD_REVISIONS><h1>Version Panel</h1><p><span id="CodeVers">%VERSION%</span></p></form>
 <form name=Brightness><h1>Brightness Level</h1><p>Currnent Brightness is at <span id="Pvalue">%VALUEP%</span>%</p></form>
 <form  action="/get" id = "TxtFile" target="hidden-form"><h1>LCD Control Panel</h1>
@@ -43,7 +43,7 @@ body{background:White;font-family:sans-serif;font-size:14px;color:black; width: 
 #file-input,input{width:100%;height:44px;border-radius:4px;margin:10px auto;font-size:15px}
 #file-input{padding:0;border:1px solid #ddd;line-height:44px;text-align:left;display:block;cursor:pointer}
 form{background:LightGrey;max-width:445px;margin:75px auto;padding:30px;border-radius:10px;text-align:center}
-div{background:#33658A ;max-width:500px;margin:75px auto;padding:100px;border-radius:100px;}
+div{background:#33658A ;max-width:500px;margin:75px auto;padding:100px;border-radius:60px;}
 .button{background:#B3001E;color:#fff;cursor:pointer}
 img {display: block;margin-left: auto;margin-right: auto;}
 
@@ -119,6 +119,10 @@ img {display: block;margin-left: auto;margin-right: auto;}
   cursor: pointer;
   text-align: center;
 }
+h1{
+font-family:sans-serif;
+ text-align: center;
+}
 </style>
 <script>
 function readValues() {
@@ -147,13 +151,11 @@ function topFunction() {
 }
 
 function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
+  document.getElementById("mySidenav").style.width = "100%";
 }
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
 }
 
 
