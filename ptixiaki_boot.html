@@ -1,28 +1,72 @@
-<title>OTA Update</title>
+<title>OTA_Update</title>
 <meta  name='viewport' content='width=device-width, initial-scale=1'>
-<div2 id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-   <a href='/logged-out'>Logout</a>
-<a href='/upload'>Upload Tool</a>
-</div2>
-<div2 id="main">
-  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
-</div2>
-<a href='/'><img border='0' src='https://m.902.gr/sites/default/files/styles/902-grid-8/public/MediaV2/20200206/dipae.jpg?itok=kOvwnoTx' width='250' height='150'></a><script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script><form method='POST' action='#' enctype='multipart/form-data' id='upload_form'><input type='file' class='input' name='update' id='file' onchange='sub(this)' style=display:none><label id='file-input' for='file'>   Choose file...</label><input type='submit' class=btn value='Update'><div1 id='prg'>progress: 0%</div1><br><div id='prgbar'><div id='bar'></div></div><br>
+<div0 id="mySidenav" class="sidenav">
+<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+<h1> <a href='/logged-out'>Logout</a></h1>
+ <h1> <a href='#bottom'>Contact</a></h1>
+<h1><a href='/upload'>Upload Tool</a></h1>
+<h1><a href='/BootLoaderIndex'>Firmware Tool</a></h1>
+ <h1> <a href='https://www.iee.ihu.gr/'>University Website</a></h1>
+</div0>
+<div1 id="main">
+  <body><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span></body>
+</div1><br>
+<a href='/'><img border='0' src='https://m.902.gr/sites/default/files/styles/902-grid-8/public/MediaV2/20200206/dipae.jpg?itok=kOvwnoTx' width='250' height='150'></a>
 
-<script>function sub(obj){var fileName = obj.value.split('\\');document.getElementById('file-input').innerHTML = '   '+ fileName[fileName.length-1];};$('form').submit(function(e){e.preventDefault();var form = $('#upload_form')[0];var data = new FormData(form);$.ajax({url: '/update',type: 'POST',data: data,contentType: false,processData:false,xhr: function() {var xhr = new window.XMLHttpRequest();xhr.upload.addEventListener('progress', function(evt) {if (evt.lengthComputable) {var per = evt.loaded / evt.total;$('#prg').html('progress: ' + Math.round(per*100) + '%');$('#bar').css('width',Math.round(per*100) + '%');}}, false);return xhr;},success:function(d, s) {console.log('success!') },error: function (a, b, c) {}});});</script><script>
+<div3 class='a'><form name=firmware method='POST' action='update' enctype='multipart/form-data' id='upload_form'>
+<div class=b id=plaisio><body1><h2>WiFi Firmware Update</h2></body1></div>
+  <input type='file' class='input' name='update' id='file' onchange='sub(this)' style=display:none><label id='file-input' for='file'>Choose file...</label>
+  <p>Waiting for upload</p>
+  <input type='submit' value='Update' class='button' ><br>
+  </form></div3>
+
+ <script>function sub(obj){var fileName = obj.value.split('\\');document.getElementById('file-input').innerHTML = '   '+ fileName[fileName.length-1];};(function (win, doc) {
+    'use strict';
+    if (!doc.querySelectorAll || !win.addEventListener) {
+        // doesn't cut the mustard.
+        return;
+    }
+    var forms = doc.querySelectorAll('form[method="post"]'),
+        formcount = forms.length,
+        i,
+        submitting = false,
+        checkForm = function (ev) {
+            if (submitting) {
+                ev.preventDefault();
+            } else {
+                submitting = true;
+                this.appendChild(doc.createElement('progress'));
+            }
+        };
+    for (i = 0; i < formcount; i = i + 1) {
+        forms[i].addEventListener('submit', checkForm, false);
+    }
+}(this, this.document));</script>
+
+  <script>
+ 
+
 function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
+  document.getElementById("mySidenav").style.width = "100%";
 }
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
 }
 </script>
 
-<style>
+  <style>
+  img {display: block;margin-left: auto;margin-right: auto;}
+  p{
+font-size:17px;
+}
+div3.a {
+  text-align: center;
+}
+.b{
+background:#33658A ;max-width:350px;margin:0px auto;padding:.5px;border-radius:0px;
+}
+
 .sidenav {
   height: 100%;
   width: 0;
@@ -30,10 +74,11 @@ function closeNav() {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #0C090B;
+  background-color: #111;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
+  text-align:center;
 }
 
 .sidenav a {
@@ -43,9 +88,10 @@ function closeNav() {
   color: #818181;
   display: block;
   transition: 0.3s;
+
 }
 
-.sidenav a:hover {
+.sidenav a:hover{
   color: #f1f1f1;
 }
 
@@ -57,14 +103,22 @@ function closeNav() {
   margin-left: 50px;
 }
 
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
 #main {
   transition: margin-left .5s;
   padding: 16px;
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
+#file-input,input{width:85%;height:44px;border-radius:4px;margin:10px auto;font-size:15px}input{background:#E2E2E2;border:0;padding:0 15px}
+body{background:White;font-family:sans-serif;font-size:14px;color:black;}
+body1{background:White;font-family:sans-serif;font-size:14px;color:white;width: auto;}
+#file-input{background:white;padding:0;border:1px solid #ddd;line-height:44px;text-align:left;display:block;cursor:pointer}
+#bar,#prgbar{background-color:white;border-radius:5px;max-width:100%;align:auto;line-height: 17px;  text-align:center;}
+#bar{background-color:#B3001E;width:0%;height:15px;}
+form{background:LightGrey;max-width:350px;margin:75px auto;padding:1px;border-radius:5px;text-align:auto;}
+.button{background:#B3001E;color:#fff;cursor:pointer;width: 200px;}
 
-#file-input,input{width:100%;height:44px;border-radius:4px;margin:10px auto;font-size:15px}input{background:#E2E2E2;border:0;padding:0 15px}body{background:White;font-family:sans-serif;font-size:14px;color:black;}#file-input{background:#E2E2E2;padding:0;border:1px solid #ddd;line-height:44px;text-align:left;display:block;cursor:pointer}#bar,#prgbar{background-color:white;border-radius:10px}#bar{background-color:#FE4134;width:0%;height:10px}form{background:#33658A;max-width:500px;margin:75px auto;padding:30px;border-radius:5px;text-align:center}.btn{background:#B3001E;color:#fff;cursor:pointer}img {display: block;margin-left: auto;margin-right: auto;}</style>
+</style>
