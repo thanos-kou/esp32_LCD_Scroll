@@ -1,3 +1,103 @@
+const char firmware_statusFail[] PROGMEM = R"rawliteral(
+<title>Status</title>
+<meta  name='viewport' content='width=device-width, initial-scale=1'>
+<div0 id="mySidenav" class="sidenav">
+<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <h1><a href='/'>Home</a></h1>
+<h1><a href='/upload'>Upload Tool</a></h1>
+<h1><a href='/BootLoaderIndex'>Firmware Tool</a></h1>
+ <h1> <a href='https://www.iee.ihu.gr/'>University Website</a></h1>
+ 
+</div0>
+<div1 id="main">
+  <body><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span></body>
+</div1>
+<a href='/'><img border='0' src='https://m.902.gr/sites/default/files/styles/902-grid-8/public/MediaV2/20200206/dipae.jpg?itok=kOvwnoTx' width='250' height='150'></a>
+<div3 class='a'><form>
+<div class=b id=plaisio><body1><h2>WiFi Firmware Update</h2></body1></div><br>
+ 
+  <p>Upload failed.Please try again...</p><br>
+  
+  </form></div3>
+
+
+
+  <script>
+
+
+function openNav() {
+  document.getElementById("mySidenav").style.width = "100%";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+</script>
+
+  <style>
+div3.a {
+  text-align: center;
+}
+.b{
+background:#33658A;max-width:350px;margin:0px auto;padding:.5px;border-radius:0px;
+}
+img {display: block;margin-left: auto;margin-right: auto;}
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  text-align:center;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+
+}
+
+.sidenav a:hover{
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+body{background:White;font-family:sans-serif;font-size:14px;color:black;}
+body1{background:White;font-family:sans-serif;font-size:14px;color:white;width: auto;}
+
+
+form{background:LightGrey;max-width:350px;margin:75px auto;padding:1px;border-radius:5px;text-align:auto;}
+
+p{
+font-size:17px;
+}
+</style>
+)rawliteral";
 const char index_html[] PROGMEM = R"rawliteral(
 <html lang="en">
 <head>
@@ -151,6 +251,7 @@ function abortHandler(event) {
 </script>
 </body>
 </html>
+
 )rawliteral";
  const char logout_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE HTML>
@@ -163,4 +264,107 @@ function abortHandler(event) {
   <p><a href="/">Go to home page</a></p>
 </body>
 </html>
+)rawliteral";
+
+const char firmware_statusOK[] PROGMEM = R"rawliteral(
+<title>Status</title>
+<meta  name='viewport' content='width=device-width, initial-scale=1'>
+<div0 id="mySidenav" class="sidenav">
+<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <h1><a href='/'>Home</a></h1>
+<h1><a href='/upload'>Upload Tool</a></h1>
+<h1><a href='/BootLoaderIndex'>Firmware Tool</a></h1>
+ <h1> <a href='https://www.iee.ihu.gr/'>University Website</a></h1>
+ 
+</div0>
+<div1 id="main">
+  <body><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span></body>
+</div1>
+<a href='/'><img border='0' src='https://m.902.gr/sites/default/files/styles/902-grid-8/public/MediaV2/20200206/dipae.jpg?itok=kOvwnoTx' width='250' height='150'></a>
+
+<div3 class='a'><form>
+<div class=b id=plaisio><body1><h2>WiFi Firmware Update</h2></body1></div><br>
+ 
+  <p>Upload Successful...</p><br>
+  
+  </form></div3>
+
+
+
+  <script>
+
+
+function openNav() {
+  document.getElementById("mySidenav").style.width = "100%";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+</script>
+
+  <style>
+  img {display: block;margin-left: auto;margin-right: auto;}
+div3.a {
+  text-align: center;
+}
+.b{
+background:#33658A;max-width:350px;margin:0px auto;padding:.5px;border-radius:0px;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  text-align:center;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+
+}
+
+.sidenav a:hover{
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+body{background:White;font-family:sans-serif;font-size:14px;color:black;}
+body1{background:White;font-family:sans-serif;font-size:14px;color:white;width: auto;}
+
+
+form{background:LightGrey;max-width:350px;margin:75px auto;padding:1px;border-radius:5px;text-align:auto;}
+
+p{
+font-size:17px;
+}
+</style>
 )rawliteral";
