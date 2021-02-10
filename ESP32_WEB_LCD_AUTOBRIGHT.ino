@@ -338,9 +338,10 @@ void handleDoUpdate(AsyncWebServerRequest *request, const String& filename, size
   if (!index)
   {
     Serial.println("Update");
-    content_len = request->contentLength();
-    
-    int cmd = (filename.indexOf("spiffs") > -1) ? U_SPIFFS : U_FLASH;
+    content_len = request->contentLength( );
+    // if filename includes spiffs, update the spiffs partition
+    int cmd = (filename.indexOf("spiffs") > -1) ? U_SPIFFS : U_FLASH; // U_SPIFFS = 100, U_FLASH = 0, cmd is U_FLASH
+
     if (!Update.begin(UPDATE_SIZE_UNKNOWN, cmd))
     {
       Update.printError(Serial);
@@ -350,20 +351,26 @@ void handleDoUpdate(AsyncWebServerRequest *request, const String& filename, size
   if (Update.write(data, len) != len)
   {
     Update.printError(Serial);
-#ifdef ESP8266
+#ifdef ESP32
   }
   else
   {
-    Serial.printf("Progress: %d%%\n", (Update.progress() * 100) / Update.size());
+    //Serial.printf( "ESP Progr.: %d%%\n", ( Update.progress( )*100)/Update.size( ) );
 #endif
   }
 
   if (final)
   {
-    AsyncWebServerResponse *response = request->beginResponse(302, "text/plain", "Please wait while the device reboots");
-    response->addHeader("Refresh", "20");
-    response->addHeader("Location", "/");
+    if (!Update.hasError()){
+    AsyncWebServerResponse *response = request->beginResponse(200, "text/html",firmware_statusOK);
+  
     request->send(response);
+    }
+    else{
+       AsyncWebServerResponse *response = request->beginResponse(200, "text/html",firmware_statusFail);
+  
+    request->send(response);
+      }
     if (!Update.end(true))
     {
       Update.printError(Serial);
